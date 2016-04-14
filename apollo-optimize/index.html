@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Hexo的apollo主题修改 · 狮之与鱼的blog</title><meta name="description" content="Hexo的apollo主题修改 - 大狮和小鱼"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favcon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="/css/fonts.css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">关于</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo的apollo主题修改</h1><div class="post-time">Apr 14, 2016</div><div class="post-content"><p>本站的主题修改自<a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank" rel="external">apollo</a>, 一般在hexo中使用一个主题的方式是</p>
+<p><code>cd myblog &amp;&amp; git clone ${gitHub repo url} themes/${themeName}</code>   </p>
+<p>然后修改_config.yml下面的theme为 ${themeName} 即可。如果主题没有生效就重新hexo server一下,因为有的主题的模板是需要重新编译的</p>
+<p>主题修改前的样式可移步<a href="http://pinggod.com/" target="_blank" rel="external">作者的blog</a></p>
+<blockquote>
+<p>发现作者是来自美团的一位前端小伙子 而且是92年的哟 好腻害 (* - *)</p>
+</blockquote>
+<h3 id="主题文件夹的结构"><a href="#主题文件夹的结构" class="headerlink" title="主题文件夹的结构"></a>主题文件夹的结构</h3><p>经<strong>复杂的统计学规律经过大量运算</strong>最终ls一下发现主题文件夹大致分为以下几个目录</p>
+<p><img src="images/apollo-directory.png" alt=""></p>
+<p>我们需要关注的是这几个目录和文件</p>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_config.xml</td>
+<td>总的配置文件 类似于pom.xml 你懂的</td>
+</tr>
+<tr>
+<td>layout</td>
+<td>这个文件夹存放了theme的模板文件, 如果需要改变模板的文件结构可以修改本目录下面的文件, 采用的模板引擎是<a href="http://jade-lang.com/" target="_blank" rel="external">jade</a></td>
+</tr>
+<tr>
+<td>source</td>
+<td>存放了css等资源文件 这里的css是压缩过的 一般我们用工具例如sublime的css format插件还原了并修改了以后 最好是能压缩一下再保存 节省网络流量</td>
+</tr>
+</tbody>
+</table>
+<h3 id="修改策略"><a href="#修改策略" class="headerlink" title="修改策略"></a>修改策略</h3><ol>
+<li><p>换背景图, 我比较喜欢微信公众号那种上面有个大的banner的，可以给<code>apollo.css</code>里面的<code>header</code>这个样式加上background</p>
+</li>
+<li><p>“关于”这个页面 通过hexo new page ‘about’来实现 就能拿到一个单独的page </p>
+</li>
+<li><p>hexo的post的url一般是<code>:year:month:day/:title</code>这样, 比较长, 如果你需要短一点的 可以在myblog的<code>_config.yml</code>里面修改<code>permalink</code>这个属性</p>
+</li>
+<li><p>反复刷新页面时, 可以看到经常会遇到一个”正在请求fonts.useso.com”字样的提示消息出现在chrome的左下角, 说明现在有一些资源是pending的状态，查看一下网络请求发现主要是2个:</p>
+<blockquote>
+<ol>
+<li><p>MathJax.js 这是一个用来绘制公式的js库 如果不需要的话就删了吧 或者可以把它下载下来 用本地的方式 但是它内部会默默地下载3个文件 还是从源站… 如果要一网打尽的话就要全部下载下来然后修改里面的地址 所以我放弃了 现在还是404小红叉 &gt;.&lt;|||</p>
+</li>
+<li><p>字体文件 以前没有接触过<code>font-face</code>, 这是一个css3的属性，支持从远程url上下载自定义的字体文件而不局限于浏览器本地的可用字体, 之前看到的那个<code>fonts.useso.com</code>是360提供的一个字体CDN，不知道为什么会一直pending, 现在换成了google的cdn好一点了</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p>[完]</p>
+<p>宣小鱼!<br>by 大狮</p>
+</div></article></div></section><footer><div class="paginator"><a href="/hello-world-1/" class="next">NEXT</a></div><div class="copyright"><p>© 2016 <a href="http://huhaonan.github.io">大狮和小鱼</a> powerd by <a href="https://hexo.io" target="_blank">Hexo</a></p></div></footer></div><script src="/js/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

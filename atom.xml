@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://huhaonan.github.io/"/>
-  <updated>2016-04-13T09:47:50.000Z</updated>
+  <updated>2016-04-14T05:51:43.000Z</updated>
   <id>http://huhaonan.github.io/</id>
   
   <author>
@@ -14,6 +14,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo的apollo主题修改</title>
+    <link href="http://huhaonan.github.io/apollo-optimize/"/>
+    <id>http://huhaonan.github.io/apollo-optimize/</id>
+    <published>2016-04-14T04:48:54.000Z</published>
+    <updated>2016-04-14T05:51:43.000Z</updated>
+    
+    <content type="html">&lt;p&gt;本站的主题修改自&lt;a href=&quot;https://github.com/pinggod/hexo-theme-apollo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;apollo&lt;/a&gt;, 一般在hexo中使用一个主题的方式是&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd myblog &amp;amp;&amp;amp; git clone ${gitHub repo url} themes/${themeName}&lt;/code&gt;   &lt;/p&gt;
+&lt;p&gt;然后修改_config.yml下面的theme为 ${themeName} 即可。如果主题没有生效就重新hexo server一下,因为有的主题的模板是需要重新编译的&lt;/p&gt;
+&lt;p&gt;主题修改前的样式可移步&lt;a href=&quot;http://pinggod.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;作者的blog&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;发现作者是来自美团的一位前端小伙子 而且是92年的哟 好腻害 (* - *)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;主题文件夹的结构&quot;&gt;&lt;a href=&quot;#主题文件夹的结构&quot; class=&quot;headerlink&quot; title=&quot;主题文件夹的结构&quot;&gt;&lt;/a&gt;主题文件夹的结构&lt;/h3&gt;&lt;p&gt;经&lt;strong&gt;复杂的统计学规律经过大量运算&lt;/strong&gt;最终ls一下发现主题文件夹大致分为以下几个目录&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/apollo-directory.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们需要关注的是这几个目录和文件&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;资源&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;_config.xml&lt;/td&gt;
+&lt;td&gt;总的配置文件 类似于pom.xml 你懂的&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;layout&lt;/td&gt;
+&lt;td&gt;这个文件夹存放了theme的模板文件, 如果需要改变模板的文件结构可以修改本目录下面的文件, 采用的模板引擎是&lt;a href=&quot;http://jade-lang.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jade&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;source&lt;/td&gt;
+&lt;td&gt;存放了css等资源文件 这里的css是压缩过的 一般我们用工具例如sublime的css format插件还原了并修改了以后 最好是能压缩一下再保存 节省网络流量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;修改策略&quot;&gt;&lt;a href=&quot;#修改策略&quot; class=&quot;headerlink&quot; title=&quot;修改策略&quot;&gt;&lt;/a&gt;修改策略&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;换背景图, 我比较喜欢微信公众号那种上面有个大的banner的，可以给&lt;code&gt;apollo.css&lt;/code&gt;里面的&lt;code&gt;header&lt;/code&gt;这个样式加上background&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;“关于”这个页面 通过hexo new page ‘about’来实现 就能拿到一个单独的page &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;hexo的post的url一般是&lt;code&gt;:year:month:day/:title&lt;/code&gt;这样, 比较长, 如果你需要短一点的 可以在myblog的&lt;code&gt;_config.yml&lt;/code&gt;里面修改&lt;code&gt;permalink&lt;/code&gt;这个属性&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;反复刷新页面时, 可以看到经常会遇到一个”正在请求fonts.useso.com”字样的提示消息出现在chrome的左下角, 说明现在有一些资源是pending的状态，查看一下网络请求发现主要是2个:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;MathJax.js 这是一个用来绘制公式的js库 如果不需要的话就删了吧 或者可以把它下载下来 用本地的方式 但是它内部会默默地下载3个文件 还是从源站… 如果要一网打尽的话就要全部下载下来然后修改里面的地址 所以我放弃了 现在还是404小红叉 &amp;gt;.&amp;lt;|||&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;字体文件 以前没有接触过&lt;code&gt;font-face&lt;/code&gt;, 这是一个css3的属性，支持从远程url上下载自定义的字体文件而不局限于浏览器本地的可用字体, 之前看到的那个&lt;code&gt;fonts.useso.com&lt;/code&gt;是360提供的一个字体CDN，不知道为什么会一直pending, 现在换成了google的cdn好一点了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[完]&lt;/p&gt;
+&lt;p&gt;宣小鱼!&lt;br&gt;by 大狮&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本站的主题修改自&lt;a href=&quot;https://github.com/pinggod/hexo-theme-apollo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;apollo&lt;/a&gt;, 一般在hexo中使用一个主题的方式是&lt;/p&gt;
+&lt;p&gt;&lt;code
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello, World</title>
